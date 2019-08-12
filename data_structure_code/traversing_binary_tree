@@ -1,0 +1,77 @@
+#define MAXSIZE 50   //定义最大的结点数
+#include<iostream>
+using namespace std;
+//使用c++模板
+template <typename T>    //类型不同时使用
+struct BNode{
+	T Data;
+	BNode<T> *lchild;
+	BNode<T> *rchild;
+	//相当于类的构造函数Data(x) <=> Data = x
+	BNode(T x):Data(x),lchild(NULL),rchild(NULL){} 
+};
+
+template <typename T>
+void PreOrderTraverse(BNode<T> *root){
+	if(root){  //如果结点不为空
+		//先打印结点值
+		cout<<root->Data;
+		//再递归左子树
+		PreOrderTraverse(root->lchild);
+		//然后递归右子树
+		PreOrderTraverse(root->rchild);
+	}
+}
+template <typename T>
+void InOrderTraverse(BNode<T> *root){
+	if(root){
+		InOrderTraverse(root->lchild);
+		cout<<root->Data;
+		InOrderTraverse(root->rchild);
+	}
+}
+template <typename T>
+void PostOrderTraverse(BNode<T> *root){
+	if(root){
+		PostOrderTraverse(root->lchild);
+		PostOrderTraverse(root->rchild);
+		cout<<root->Data;
+	}
+}
+
+void creat_BTree(){
+	//建立一颗二叉树
+	BNode<char> *node1 = new BNode<char>('-');
+	BNode<char> *node2 = new BNode<char>('+');
+	BNode<char> *node3 = new BNode<char>('/');
+	BNode<char> *node4 = new BNode<char>('a');
+	BNode<char> *node5 = new BNode<char>('*');
+	BNode<char> *node6 = new BNode<char>('e');
+	BNode<char> *node7 = new BNode<char>('f');
+	BNode<char> *node8 = new BNode<char>('b');
+	BNode<char> *node9 = new BNode<char>('-');
+	BNode<char> *node10 = new BNode<char>('c');
+	BNode<char> *node11 = new BNode<char>('d');
+	node1->lchild = node2;
+	node1->rchild = node3;
+	node2->lchild = node4;
+	node2->rchild = node5;
+	node3->lchild = node6;
+	node3->rchild = node7;
+	node5->lchild = node8;
+	node5->rchild = node9;
+	node9->lchild = node10;
+	node9->rchild = node11;
+
+	cout<<"前序遍历:";
+	PreOrderTraverse(node1);
+	cout<<"\n中序遍历:";
+	InOrderTraverse(node1);
+	cout<<"\n后序遍历:";
+	PostOrderTraverse(node1);
+}
+
+int main(){
+	creat_BTree();
+	return 0;
+}
